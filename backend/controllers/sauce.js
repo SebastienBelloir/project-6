@@ -75,21 +75,33 @@ exports.addLikeAndDislike = (req, res, next) => {
     if (like === 1) {
         Sauce.updateOne(
             {_id: sauceId},
-            usersLiked.push(user),
-            {likes: like}
+            {
+            $push: {usersLiked: user},
+            $inc: {likes: like}
+            }
         )
         .then(() => res.status(200).json({ message: 'Like ajouté !' }))
         .catch(error => res.status(400).json({ error }));
     }
 
-    
+    if (like === -1) {
+        Sauce.updateOne(
+            {_id: sauceId},
+            {
+                $push: {usersDisliked: user},
+                $inc: {dislikes: -like}
+                }
+        )
+        .then(() => res.status(200).json({ message: 'Dislike ajouté !' }))
+        .catch(error => res.status(400).json({ error }));
+    }
 
-    // if (like === -1) {
-    //     Sauce.updateOne(
-    //         {_id: sauceId},
-    //         usersDisliked.push(user)
-    //     )
-    //     .then(() => res.status(200).json({ message: 'Dislike ajouté !' }))
-    //     .catch(error => res.status(400).json({ error }));
-    // }
+    if (like === 0) {
+        Sauce.updateOne(
+            {_id: sauceId},
+            {
+                
+            }
+        )
+    }
 };
