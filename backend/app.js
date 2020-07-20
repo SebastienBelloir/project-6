@@ -3,20 +3,21 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 const path = require('path');
-
+const config = require('../backend/config');
 
 const sauceRoutes = require('./Routes/sauce');
 const userRoutes = require('./Routes/user');
+const { db } = require('./models/user');
 
 
-mongoose.connect('mongodb+srv://sbelloir:azerty86@cluster0-1qcor.mongodb.net/<dbname>?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://' + config.user + ':' + config.password + '@cluster0-1qcor.mongodb.net/' + config.db + '?retryWrites=true&w=majority',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
-
+ 
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
