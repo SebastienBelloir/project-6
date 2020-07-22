@@ -1,12 +1,12 @@
-Projet n°6 - Parcours Développeur Web - OpenClassrooms
+# Projet n°6 - Parcours Développeur Web - OpenClassrooms
 Création d'une API sécurisée pour l'application "Piquante" par So Pekocko
 Ce projet est réalisé dans le cadre du parcours Développeur Web du site OpenClassrooms
 
 Logo So Pekocko
 
-Documentations
+# Documentations
 Note de cadrage
-Guidelines API
+[Guidelines API]
 Front-end
 Pour pouvoir utiliser l'API, vous pouvez cloner ce répertoire Github et y suivre les instructions pour faire tourner le front-end (plus de détails dans la note de cadrage: Dépôt GitHub/Procédure).
 
