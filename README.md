@@ -5,6 +5,7 @@ Ce projet est réalisé dans le cadre du parcours Développeur Web du site [Open
 
 # Documentations
 [Note de cadrage](https://github.com/SebastienBelloir/project-6/blob/master/documents/P6_Note%20de%20cadrage%20So%20Pekocko_V3.pdf)
+
 [Guidelines API](https://github.com/SebastienBelloir/project-6/blob/master/documents/Guidelines%2BAPI.pdf)
 
 # Front-end
