@@ -7,7 +7,7 @@ const mongoose = require('mongoose'); // L'interface pour communiquer avec la BD
 const app = express();
 const path = require('path'); // Pour le middleware express static pour acceder au chemin du système de fichier
 const config = require('./config/config');
-
+const helmet = require('helmet');
 const sauceRoutes = require('./Routes/sauce');
 const userRoutes = require('./Routes/user');
 const { db } = require('./models/user');
@@ -30,6 +30,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+app.use(helmet());
 
 app.use('/images', express.static(path.join(__dirname, 'images'))); //Va permettre à l'app de servir le dossier contenant les images, pour le middleware multer
 app.use('/api/sauces', sauceRoutes);
