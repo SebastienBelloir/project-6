@@ -45,5 +45,5 @@ Créer un dossier config à l'intérieur du dossier backend. => project-6\backen
 Créer ensuite un fichier config.js avec la line de code suivante :
 
 ```bash
-module.exports = {user: 'votreusername', password: 'votremotdepasse', db: 'TheHottestReviews'};
+module.exports = {user: 'sbelloir86', password: 'Azerty79', db: 'TheHottestReviews'};
 ```
