@@ -1,9 +1,12 @@
-const User = require('../models/user');
-const brcrypt = require('bcrypt');
-const jsonWebToken = require('jsonwebtoken');
+// Contient la logique métier concernant les utilisateurs, à appliquer aux différentes routes CRUD (ici uniquement POST)
 
-exports.signup = (req, res, next) => {
-    brcrypt.hash(req.body.password, 10)
+const User = require('../models/user'); // On fait appel à notre modèle 'user'
+const brcrypt = require('bcrypt'); // On fait appel à Bcrypt pour hasher le mot de passe
+const jsonWebToken = require('jsonwebtoken'); // On fait appel à JsonWebToken pour attribuer un TOKEN à un utilisateur quand il se connecte
+
+
+exports.signup = (req, res, next) => { // Création nouvel utilisateur
+    brcrypt.hash(req.body.password, 10) // Le chiffre '10' indique le nombre de salage du MDP
     .then(hash => {
         const user = new User({
             email: req.body.email,
@@ -16,7 +19,7 @@ exports.signup = (req, res, next) => {
     .catch(error => res.status(500).json({error}));
 };
 
-exports.login = (req, res, next) => {
+exports.login = (req, res, next) => { // Connection à un compte déjà existant
     User.findOne({email: req.body.email})
     .then(user => {
         if (!user) {
@@ -31,8 +34,8 @@ exports.login = (req, res, next) => {
                 userId: user._id,
                 token: jsonWebToken.sign(
                     { userId: user._id },
-                    'hLq^hNoHp{Vw)c`HWHGwAq#vm&)1nX',
-                    { expiresIn: '24h'}
+                    'hLq^hNoHp{Vw)c`HWHGwAq#vm&)1nX', // clé d'encodage
+                    { expiresIn: '24h'} // Date d'expiration du TOKEN
                 )
             });
         })

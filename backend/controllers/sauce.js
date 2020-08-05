@@ -1,8 +1,10 @@
-const Sauce = require('../models/sauce');
-const fs = require('fs');
+// Contient la logique métier concernant les sauces, à appliquer aux différentes routes CRUD
+
+const Sauce = require('../models/sauce'); // Récupération du modèle 'Sauce'
+const fs = require('fs'); // Récupération du module 'file system' de Node
 
 
-exports.createSauce = (req, res, next) => {
+exports.createSauce = (req, res, next) => { // route POST => Création d'une sauce
     const sauceObject = JSON.parse(req.body.sauce);
     delete sauceObject._id;
     const sauce = new Sauce({
@@ -14,7 +16,7 @@ exports.createSauce = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
-exports.getOneSauce = (req, res, next) => {
+exports.getOneSauce = (req, res, next) => { // route READ => afficher une sauce en particulier
     Sauce.findOne({
         _id: req.params.id
     }).then(
@@ -30,7 +32,7 @@ exports.getOneSauce = (req, res, next) => {
     );
 };
 
-exports.modifySauce = (req, res, next) => {
+exports.modifySauce = (req, res, next) => { // route PUT => modification d'une sauce
     const sauceObject = req.file ?
         {
             ...JSON.parse(req.body.sauce),
@@ -41,7 +43,7 @@ exports.modifySauce = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
-exports.deleteSauce = (req, res, next) => {
+exports.deleteSauce = (req, res, next) => { // route DELETE => suppression d'une sauce
     Sauce.findOne({ _id: req.params.id })
         .then((sauce) => {
             const filename = sauce.imageUrl.split('/images/')[1];
@@ -54,7 +56,7 @@ exports.deleteSauce = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
-exports.getAllSauces = (req, res, next) => {
+exports.getAllSauces = (req, res, next) => { // route READ => afficher toutes les sauces
     Sauce.find().then(
         (sauces) => {
             res.status(200).json(sauces);
@@ -68,11 +70,11 @@ exports.getAllSauces = (req, res, next) => {
     );
 };
 
-exports.addLikeAndDislike = (req, res, next) => {
+exports.addLikeAndDislike = (req, res, next) => { // route POST => ajout/suppression d'un like/dislike à une sauce
     const user = req.body.userId;
     const like = req.body.like;
     const sauceId = req.params.id;
-    if (like === 1) {
+    if (like === 1) { // Si il s'agit d'un like
         Sauce.updateOne(
             {_id: sauceId},
             {
@@ -86,7 +88,7 @@ exports.addLikeAndDislike = (req, res, next) => {
 
     
 
-    if (like === -1) {
+    if (like === -1) { // Si il s'agit d'un dislike
         Sauce.updateOne(
             {_id: sauceId},
             {
@@ -97,7 +99,7 @@ exports.addLikeAndDislike = (req, res, next) => {
         .then(() => res.status(200).json({ message: 'Dislike ajouté !' }))
         .catch(error => res.status(400).json({ error }));
     }
-    if (like === 0) { 
+    if (like === 0) { // Annulation like ou dislike
     Sauce.findOne({ _id: sauceId })
       .then((sauce) => {
         if (sauce.usersLiked.includes(user)) { 

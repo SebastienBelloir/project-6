@@ -1,7 +1,7 @@
-const http = require('http');
-const app = require('./app');
+const http = require('http'); // On appelle l'objet 'http' de node
+const app = require('./app'); // On appelle l'application que renverra le serveur
 
-const normalizePort = val => {
+const normalizePort = val => { // la fonction normalizePort renvoie un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne ;
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -13,9 +13,9 @@ const normalizePort = val => {
   return false;
 };
 const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+app.set('port', port); // On doit spécifié sur quel port tourne l'application ( port 3000 par défaut ou sur le port spécifié par l'environnement)
 
-const errorHandler = error => {
+const errorHandler = error => { // recherche les différentes erreurs et les gère de manière appropriée. Elle est ensuite enregistrée dans le serveur ;
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -35,7 +35,7 @@ const errorHandler = error => {
   }
 };
 
-const server = http.createServer(app);
+const server = http.createServer(app); // On créer notre serveur grâce à le méthode '.createServer qui prend deux paramètres
 
 server.on('error', errorHandler);
 server.on('listening', () => {
@@ -44,4 +44,4 @@ server.on('listening', () => {
   console.log('Listening on ' + bind);
 });
 
-server.listen(port);
+server.listen(port); // Le serveur écoute les requêtes sur le port 3000 par défaut ou sur le port spécifié par l'environnement
