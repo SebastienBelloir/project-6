@@ -1,15 +1,15 @@
 // Contient la logique métier concernant les sauces, à appliquer aux différentes routes CRUD
 
 const Sauce = require('../models/sauce'); // Récupération du modèle 'Sauce'
-const fs = require('fs'); // Récupération du module 'file system' de Node
+const fs = require('fs'); // file system . Il nous donne accès aux fonctions qui nous permettent de modifier le système de fichiers, y compris aux fonctions permettant de supprimer les fichiers
 
 
 exports.createSauce = (req, res, next) => { // route POST => Création d'une sauce
-    const sauceObject = JSON.parse(req.body.sauce);
+    const sauceObject = JSON.parse(req.body.sauce); // Transformation chaine de caractère en objet
     delete sauceObject._id;
     const sauce = new Sauce({
-        ...sauceObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        ...sauceObject, // L'opérateur spread ... est utilisé pour faire une copie de tous les éléments de sauceObject
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // Url de l'image
     });
     sauce.save()
         .then(() => res.status(201).json({ message: 'Objet enregistré !' }))

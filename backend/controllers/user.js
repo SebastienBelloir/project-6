@@ -6,8 +6,8 @@ const jsonWebToken = require('jsonwebtoken'); // On fait appel à JsonWebToken p
 
 
 exports.signup = (req, res, next) => { // Création nouvel utilisateur
-    brcrypt.hash(req.body.password, 10) // Le chiffre '10' indique le nombre de salage du MDP
-    .then(hash => {
+    brcrypt.hash(req.body.password, 10) // Le chiffre '10' indique le nombre de salage du MDP.
+    .then(hash => { // Promise qui renvoie le hash généré + création nouvel utilisateur.
         const user = new User({
             email: req.body.email,
             password: hash
@@ -25,12 +25,12 @@ exports.login = (req, res, next) => { // Connection à un compte déjà existant
         if (!user) {
             return res.status(401).json({error: 'Utilisateur non trouvé !'});
         }
-        brcrypt.compare(req.body.password, user.password)
+        brcrypt.compare(req.body.password, user.password) // comparaison du mot de passe entré par l'utilisateur avec le hash enregistré dans la BDD.
         .then(valid => {
             if (!valid) {
                 return res.status(401).json({error: 'Mot de passe incorrect !'}); 
             }
-            res.status(200).json({
+            res.status(200).json({ // Envoi de la réponse contenant l'id utilisateur + token
                 userId: user._id,
                 token: jsonWebToken.sign(
                     { userId: user._id },

@@ -1,4 +1,4 @@
-// L'application en elle même qui va faire appelle aux différentes fonctions implémentées dans l'APi : Accès aux images, aux route User, aux route Sauces
+// L'application en elle même qui va faire appelle aux différentes fonctions implémentées dans l'API : Accès aux images, aux routes User, aux routes Sauces
 
 
 const express = require('express');

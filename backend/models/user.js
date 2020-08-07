@@ -1,7 +1,7 @@
 // Schéma de données pour nos utilisateurs
 
 const mongoose = require('mongoose');
-const uniqueValidator = require ('mongoose-unique-validator')
+const uniqueValidator = require ('mongoose-unique-validator') // email unique pour chaque utilisateur
 
 const userSchema = mongoose.Schema({
     email: {type: String, required: true, unique: true},
